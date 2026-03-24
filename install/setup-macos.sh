@@ -30,10 +30,6 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
-# Screenshot location
-mkdir -p ~/Screenshots
-defaults write com.apple.screencapture location ~/Screenshots
-
 # Restart Finder to apply changes
 killall Finder
 

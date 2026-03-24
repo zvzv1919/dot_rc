@@ -21,9 +21,9 @@ Install the macOS development environment. Run each phase sequentially using the
 
 2. Run Phase 1 first. Verify `brew --version` succeeds before continuing.
 
-3. Run selected Phase 2 scripts sequentially. If one fails, log the error and continue to the next.
+3. Run selected Phase 2 scripts **in parallel** (they are independent). Use parallel Bash tool calls or subagents. If one fails, log the error — don't block the others.
 
-4. Run selected Phase 3 scripts. For interactive scripts (setup-git.sh, setup-ssh.sh), warn the user they'll need to provide input.
+4. Run selected Phase 3 scripts **in parallel** where possible. Non-interactive scripts (setup-python.sh, setup-macos.sh) can run in parallel with each other. Interactive scripts (setup-git.sh, setup-ssh.sh) require stdin, so warn the user and run them one at a time.
 
 5. After all scripts complete, run `brew cleanup` and report a summary of what succeeded and what failed.
 

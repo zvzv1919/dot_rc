@@ -99,6 +99,10 @@ Edit `install/install-cli-tools.sh`, add to `CLI_TOOLS` array, run the script.
 brew update && brew upgrade
 ```
 
+## Command Maintenance
+
+When an exploration or user-involved interaction discovers a working approach for a task (e.g. figuring out how to apply a config file), always update the relevant `.claude/commands/*.md` file with the working approach. This ensures future runs of the command use the proven method automatically rather than re-discovering it.
+
 ## Architecture Notes
 
 - All installation scripts are modular and can run independently (except install-homebrew.sh must run first)

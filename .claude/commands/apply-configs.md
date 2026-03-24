@@ -4,11 +4,14 @@ Apply configuration files from `config/` to the system.
 
 1. **Zsh config**: Copy `config/.zshrc` to `~/.zshrc`. Before overwriting, check if `~/.zshrc` already exists and show a diff if it differs. Ask the user to confirm before overwriting. After copying, remind the user to run `source ~/.zshrc` or restart their terminal.
 
-2. **iTerm2 config**: Try these approaches in order until one works:
-   - First try: `open "config/iTerm2 State.itermexport"` (opens iTerm2 import dialog)
-   - If that fails (e.g. iTerm2 not installed or file type not recognized): try `open -a iTerm "config/iTerm2 State.itermexport"`
-   - If that also fails: copy the file to iTerm2's preferences directory manually (`cp "config/iTerm2 State.itermexport" ~/Library/Application\ Support/iTerm2/`)
-   - If all automated methods fail: give the user manual instructions (open iTerm2 → Preferences → General → Import)
+2. **iTerm2 config**: The export file (`config/iTerm2 State.itermexport`) is a tar.gz archive containing `user-defaults/UserDefaults.plist`, `app-support/`, and `dot-iterm2/` (shell integration scripts). Apply via direct copy:
+   - Extract the archive to a temp directory: `tar -xzf "config/iTerm2 State.itermexport" -C /tmp/iterm_extract`
+   - Warn the user that iTerm2 must be quit before applying (it overwrites prefs on exit). If running inside iTerm2, start a tmux session first so the shell survives.
+   - Quit iTerm2: `osascript -e 'tell application "iTerm2" to quit'` and wait a few seconds.
+   - Copy `user-defaults/UserDefaults.plist` → `~/Library/Preferences/com.googlecode.iterm2.plist`
+   - Copy `app-support/*` → `~/Library/Application Support/iTerm2/`
+   - Copy `dot-iterm2/*` → `~/.iterm2/`
+   - Relaunch iTerm2: `open -a iTerm`
 
 3. **Cursor profile**: The file `config/default_cursor_profile.code-profile` is a JSON bundle with double-encoded inner fields. To apply it programmatically:
 

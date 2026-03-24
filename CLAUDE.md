@@ -51,6 +51,7 @@ All scripts source `install/common.sh` for shared functions and are idempotent (
 2. Run the script - it skips already-installed items
 3. All scripts use Homebrew; check if package exists first
 
+
 ## Configuration Files (config/)
 
 **`config/.zshrc`** - Oh My Zsh configuration:
@@ -69,6 +70,7 @@ Custom Claude Code commands live in `.claude/commands/` and are invoked as `/pro
 
 - `/project:install` - Install macOS dev environment (presents module selection, runs scripts in phases)
 - `/project:apply-configs` - Apply configuration files from `config/` to the system
+- `/project:add` - Add tools/apps/languages to install scripts (verifies Homebrew names, categorizes, updates docs)
 
 Each command file contains instructions for Claude to execute the task.
 
@@ -102,6 +104,14 @@ brew update && brew upgrade
 ## Command Maintenance
 
 When an exploration or user-involved interaction discovers a working approach for a task (e.g. figuring out how to apply a config file), always update the relevant `.claude/commands/*.md` file with the working approach. This ensures future runs of the command use the proven method automatically rather than re-discovering it.
+
+## Documentation Sync Rule
+
+**Whenever any install script or config file is modified, always update the corresponding documentation to match:**
+- `install/README.md` — must reflect the current contents of all install script arrays and configurations
+- `CLAUDE.md` — update if script behavior, structure, or slash commands change
+
+This applies to all modifications, whether made via `/project:add`, direct edits, or any other interaction.
 
 ## Architecture Notes
 

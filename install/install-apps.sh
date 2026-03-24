@@ -10,7 +10,7 @@ source "$(dirname "$0")/common.sh"
 check_macos
 ensure_homebrew
 
-echo_info "Installing development applications..."
+echo_info "Installing applications..."
 
 CASKS=(
     "visual-studio-code"    # Code editor
@@ -19,6 +19,15 @@ CASKS=(
     "docker"               # Containerization
     "postman"              # API testing
     "rectangle"            # Window management
+    "google-chrome"        # Web browser
+    "firefox"              # Web browser
+    "slack"                # Team communication
+    "zoom"                 # Video conferencing
+    "wechat"               # Messaging
+    "claude"               # Claude desktop app
+    "claude-code"          # Claude Code CLI
+    "steam"                # Gaming platform
+    "github"               # GitHub Desktop
 )
 
 for cask in "${CASKS[@]}"; do

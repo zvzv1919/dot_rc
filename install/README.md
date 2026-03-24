@@ -70,6 +70,23 @@ Complete list of everything that will be installed by the scripts in this direct
 - Postman (API testing)
 - Rectangle (window management)
 
+### Browsers
+- Google Chrome
+- Firefox
+
+### Communication
+- Slack
+- Zoom
+- WeChat
+
+### AI
+- Claude (desktop app)
+- Claude Code (CLI)
+
+### Other
+- Steam (gaming)
+- GitHub Desktop
+
 ## Shell Configuration (`setup-zsh.sh`)
 
 - Oh My Zsh framework

@@ -109,3 +109,6 @@ export NVM_DIR="$HOME/.nvm"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+# Salesforce corporate network SSL certs for Node.js (required for Claude Code, etc.)
+export NODE_EXTRA_CA_CERTS="$HOME/.claude/certs/salesforce-ca-bundle.pem"
+

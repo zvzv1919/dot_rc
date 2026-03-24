@@ -25,7 +25,7 @@ All scripts source `install/common.sh` for shared functions and are idempotent (
 
 **`install/common.sh`** - Shared utilities:
 - Color output functions: `echo_info`, `echo_success`, `echo_warning`, `echo_error`
-- Helper functions: `check_macos()`, `ensure_homebrew()`
+- Helper functions: `check_macos()`, `ensure_homebrew()`, `ensure_sudo()`
 - All scripts exit on error (`set -e`)
 
 **`install/install-homebrew.sh`** - Installs Homebrew and Command Line Tools. Handles both Intel and Apple Silicon Macs (ARM64 detection for brew path).
@@ -112,6 +112,10 @@ When an exploration or user-involved interaction discovers a working approach fo
 - `CLAUDE.md` — update if script behavior, structure, or slash commands change
 
 This applies to all modifications, whether made via `/project:add`, direct edits, or any other interaction.
+
+## Important: Config Application Order
+
+**Always apply configurations after installation, not before.** Copying `config/.zshrc` to `~/.zshrc` will overwrite any environment variables or settings that were added to the live `~/.zshrc` outside of this repo (e.g. `NODE_EXTRA_CA_CERTS` for corporate SSL, tool-specific exports). When adding environment-specific settings, always add them to `config/.zshrc` in this repo first, so applying configs won't lose them.
 
 ## Architecture Notes
 

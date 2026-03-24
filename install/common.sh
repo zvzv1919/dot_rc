@@ -27,6 +27,17 @@ echo_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# Acquire sudo credentials upfront and keep them alive for the session.
+# Call this once at the start; subsequent sudo calls won't re-prompt.
+ensure_sudo() {
+    echo_info "Requesting administrator privileges (you may be prompted for your password)..."
+    sudo -v
+    # Keep sudo alive in the background until this script's parent process exits
+    while true; do sudo -n true; sleep 50; done 2>/dev/null &
+    SUDO_KEEPALIVE_PID=$!
+    trap 'kill $SUDO_KEEPALIVE_PID 2>/dev/null' EXIT
+}
+
 # Check if running on macOS
 check_macos() {
     if [[ "$OSTYPE" != "darwin"* ]]; then

@@ -10,6 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 source "$SCRIPT_DIR/common.sh"
 
 check_macos
+ensure_sudo
 
 echo_info "Starting macOS Developer Environment Setup..."
 echo ""

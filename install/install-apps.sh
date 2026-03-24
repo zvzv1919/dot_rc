@@ -9,6 +9,7 @@ source "$(dirname "$0")/common.sh"
 
 check_macos
 ensure_homebrew
+ensure_sudo
 
 echo_info "Installing applications..."
 

@@ -9,9 +9,10 @@ This is a modular dotfiles/configuration repository for bootstrapping and mainta
 ## Project Structure
 
 ```
-install/    # Modular installation scripts
-config/     # Configuration files (zshrc, iTerm2, Cursor)
-other/      # Miscellaneous files
+install/           # Modular installation scripts
+config/            # Configuration files (zshrc, iTerm2, Cursor)
+.claude/commands/  # Claude Code slash commands (invoke via /project:<name>)
+other/             # Miscellaneous files
 ```
 
 ## Installation Scripts (install/)
@@ -62,14 +63,14 @@ All scripts source `install/common.sh` for shared functions and are idempotent (
 
 **`config/iTerm2 State.itermexport`** - Complete iTerm2 configuration (import via Preferences or `open` command)
 
-## Skills
+## Slash Commands
 
-The `skills/` directory contains executable entry points:
+Custom Claude Code commands live in `.claude/commands/` and are invoked as `/project:<name>`:
 
-- `skills/install-all.md` - Install complete development environment
-- `skills/apply-configs.md` - Apply configuration files
+- `/project:install` - Install macOS dev environment (presents module selection, runs scripts in phases)
+- `/project:apply-configs` - Apply configuration files from `config/` to the system
 
-Skills are concise command references. For details, read the referenced README files in `install/` and `config/` directories.
+Each command file contains instructions for Claude to execute the task.
 
 ## Common Development Tasks
 

@@ -10,7 +10,7 @@ This is a modular dotfiles/configuration repository for bootstrapping and mainta
 
 ```
 install/           # Modular installation scripts
-config/            # Configuration files (zshrc, iTerm2, Cursor)
+config/            # Migration scripts, config docs, and profiles
 .claude/commands/  # Claude Code slash commands (invoke via /project:<name>)
 other/             # Miscellaneous files
 ```
@@ -52,23 +52,13 @@ All scripts source `install/common.sh` for shared functions and are idempotent (
 3. All scripts use Homebrew; check if package exists first
 
 
-## Configuration Files (config/)
-
-**`config/.zshrc`** - Oh My Zsh configuration:
-- Theme: `avit`
-- Plugins: `z`, `zsh-autosuggestions`
-- Includes nvm setup and iTerm2 shell integration
-- Copy to `~/.zshrc` and run `source ~/.zshrc` to apply
-
-**`config/default_cursor_profile.code-profile`** - Cursor editor profile (import via Settings → Profiles)
-
-**`config/iTerm2 State.itermexport`** - Complete iTerm2 configuration (import via Preferences or `open` command)
-
-**`config/migration.md`** - Full inventory of config/credential files to migrate to a new laptop, with apply instructions and agent guidance.
+## Configuration and Migration (config/)
 
 **`config/migrate-export.sh`** - Run on the old laptop to create `~/Desktop/laptop-migration/` containing a tarball of configs/creds and a Homebrew Brewfile.
 
 **`config/migrate-import.sh`** - Run on the new laptop to extract and apply each config independently, printing a final success/failure report.
+
+**`config/migration.md`** - Full inventory of config/credential files to migrate (SSH, AWS, Kube, GH CLI, Docker, Git, Zsh, Cursor, iTerm2, Homebrew), with apply instructions and agent guidance.
 
 ## Slash Commands
 
@@ -94,10 +84,16 @@ Each command file contains instructions for Claude to execute the task.
 ./install/install-apps.sh
 ```
 
-### Update configurations
+### Migrate to a new laptop
 ```bash
-cp config/.zshrc ~/.zshrc && source ~/.zshrc
+# Old laptop: export configs/creds + Brewfile
+./config/migrate-export.sh
+
+# New laptop: install tools, then import configs
+./install/install.sh
+./config/migrate-import.sh
 ```
+See `config/migration.md` for the full inventory and agent instructions. Each config is applied independently; the script prints a final success/failure report.
 
 ### Add a new CLI tool
 Edit `install/install-cli-tools.sh`, add to `CLI_TOOLS` array, run the script.

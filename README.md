@@ -17,12 +17,25 @@ cd ~/dotfiles
 
 ```
 .
-├── skills/           # Executable skills for automated installation
-├── install/          # Installation scripts for tools and apps
-├── config/           # Configuration files for various applications
-├── other/            # Miscellaneous files and utilities
-├── CLAUDE.md         # Documentation for Claude Code
-└── README.md         # This file
+├── install/                # Modular installation scripts
+│   ├── common.sh           # Shared utilities (colors, helpers)
+│   ├── install.sh          # Main orchestrator
+│   ├── install-homebrew.sh
+│   ├── install-cli-tools.sh
+│   ├── install-languages.sh
+│   ├── install-apps.sh
+│   ├── setup-zsh.sh
+│   ├── setup-git.sh
+│   ├── setup-python.sh
+│   ├── setup-ssh.sh
+│   └── setup-macos.sh
+├── config/                 # Configuration files and migration tools
+│   ├── migrate-export.sh   # Export configs/creds for laptop migration
+│   ├── migrate-import.sh   # Import and apply configs on new laptop
+│   └── migration.md        # Migration inventory and agent instructions
+├── other/                  # Miscellaneous files and utilities
+├── CLAUDE.md               # Guidance for Claude Code / AI agents
+└── README.md               # This file
 ```
 
 ## Installation
@@ -54,24 +67,11 @@ See [install/README.md](install/README.md) for detailed documentation.
 
 ## Configuration
 
-The `config/` directory contains configuration files:
+The `config/` directory contains migration scripts and documentation for transferring configs and credentials to a new laptop:
 
-- **`.zshrc`** - Zsh configuration with Oh My Zsh
-- **`default_cursor_profile.code-profile`** - Cursor editor profile
-- **`iTerm2 State.itermexport`** - iTerm2 terminal configuration
-
-### Applying Configurations
-
-```bash
-# Zsh configuration
-cp config/.zshrc ~/.zshrc
-source ~/.zshrc
-
-# iTerm2 (import via Preferences or open the file)
-open "config/iTerm2 State.itermexport"
-
-# Cursor (import via Settings → Profiles)
-```
+- **`migrate-export.sh`** — Run on the old laptop to bundle configs/creds and a Homebrew Brewfile into `~/Desktop/laptop-migration/`
+- **`migrate-import.sh`** — Run on the new laptop to extract and apply each config independently, with a final success/failure report
+- **`migration.md`** — Full inventory of what's in the migration archive, apply instructions, and guidance for AI agents
 
 See [config/README.md](config/README.md) for detailed documentation.
 
@@ -100,11 +100,22 @@ Edit the arrays in the installation scripts:
 - Languages: `install/install-languages.sh` → `LANGUAGES` array
 - Applications: `install/install-apps.sh` → `CASKS` array
 
-### Modifying Configurations
+## Laptop Migration
 
-1. Edit the config files in `config/`
-2. Copy them to your home directory or import them into the application
-3. Commit changes to track your preferences
+To migrate configs and credentials to a new laptop:
+
+```bash
+# On the old laptop — creates ~/Desktop/laptop-migration/
+./config/migrate-export.sh
+
+# Transfer the folder to the new laptop (AirDrop, USB, etc.)
+
+# On the new laptop — install tools first, then import configs
+./install/install.sh
+./config/migrate-import.sh
+```
+
+The import script applies each item independently and prints a final report of what succeeded and what failed. See [config/migration.md](config/migration.md) for the full inventory of migrated files (SSH keys, AWS/Kube/Docker/GH CLI configs, shell history, Cursor and iTerm2 settings, Homebrew packages).
 
 ## Maintenance
 
@@ -115,28 +126,9 @@ brew update && brew upgrade
 
 ### Backup Your Configurations
 ```bash
-# Backup Zsh config
-cp ~/.zshrc config/.zshrc
-
-# Export iTerm2 settings
-# Preferences → General → Preferences → Save Current Settings
-
-# Export Cursor profile
-# Settings → Profiles → Export Profile
+# Export all configs/creds for migration
+./config/migrate-export.sh
 ```
-
-## Automated Execution
-
-For automated installation (bots, CI/CD, Claude Code):
-```bash
-# See skills/install-all.md for complete automation instructions
-```
-
-The `skills/` directory contains executable skills with proper failure handling:
-- Continue on failure, don't stop
-- Log all results
-- No retry loops
-- Validate installations
 
 ## Notes
 

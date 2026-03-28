@@ -52,6 +52,9 @@ add_path "$HOME/Library/Application Support/Cursor/User/settings.json"
 add_path "$HOME/Library/Application Support/Cursor/User/keybindings.json"
 add_path "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
+# --- 4. Browser Profile (Chrome) ---
+add_path "$HOME/Library/Application Support/Google/Chrome"
+
 if [ ${#TAR_ARGS[@]} -eq 0 ]; then
     echo_error "No files found to archive."
     exit 1
@@ -61,6 +64,22 @@ echo_info "Creating tarball..."
 tar czf "$TARBALL" \
     --exclude='.ssh/agent' \
     --exclude='.ssh/*.sock' \
+    --exclude='*/Google/Chrome/*/Cache' \
+    --exclude='*/Google/Chrome/*/Cache_Data' \
+    --exclude='*/Google/Chrome/*/Code Cache' \
+    --exclude='*/Google/Chrome/*/GPUCache' \
+    --exclude='*/Google/Chrome/*/Service Worker/CacheStorage' \
+    --exclude='*/Google/Chrome/*/Service Worker/ScriptCache' \
+    --exclude='*/Google/Chrome/*/blob_storage' \
+    --exclude='*/Google/Chrome/*/Session Storage' \
+    --exclude='*/Google/Chrome/*/File System' \
+    --exclude='*/Google/Chrome/*/GCM Store' \
+    --exclude='*/Google/Chrome/*/BrowserMetrics' \
+    --exclude='*/Google/Chrome/Crashpad' \
+    --exclude='*/Google/Chrome/ShaderCache' \
+    --exclude='*/Google/Chrome/component_crx_cache' \
+    --exclude='*/Google/Chrome/OptimizationGuidePredictionModels' \
+    --exclude='*/Google/Chrome/MEIPreload' \
     "${TAR_ARGS[@]}" 2>/dev/null
 
 echo_success "Migration archive created: $TARBALL"

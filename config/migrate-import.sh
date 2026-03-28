@@ -108,6 +108,30 @@ apply_item "iTerm2 preferences"    \
     "$STAGED_HOME/Library/Preferences/com.googlecode.iterm2.plist" \
     "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 
+# --- Chrome profile (cookies, local storage, history, extensions, etc.) ---
+
+CHROME_SRC="$STAGED_HOME/Library/Application Support/Google/Chrome"
+CHROME_DEST="$HOME/Library/Application Support/Google/Chrome"
+
+if [ -d "$CHROME_SRC" ]; then
+    if pgrep -x "Google Chrome" >/dev/null 2>&1; then
+        echo_warning "Chrome is running — profile data cannot be applied while Chrome is open."
+        echo_warning "Quit Chrome and re-run this script, or manually copy from:"
+        echo_warning "  $STAGING/.../Google/Chrome  →  $CHROME_DEST"
+        report_fail "Chrome profile" "Chrome is running (quit Chrome first)"
+    else
+        mkdir -p "$CHROME_DEST"
+        cp -Rn "$CHROME_SRC/." "$CHROME_DEST/" 2>/dev/null
+        if [ $? -eq 0 ]; then
+            report_ok "Chrome profile (cookies, local storage, history, extensions)"
+        else
+            report_fail "Chrome profile" "cp failed"
+        fi
+    fi
+else
+    report_fail "Chrome profile" "not found in archive"
+fi
+
 # ---------------------------------------------------------------------------
 # Homebrew bundle
 # ---------------------------------------------------------------------------

@@ -66,7 +66,13 @@ Transfer the `laptop-migration/` folder to the new laptop (e.g. AirDrop, USB dri
 | Cursor keybindings | `~/Library/Application Support/Cursor/User/keybindings.json` | Same path | Custom key bindings. |
 | iTerm2 preferences | `~/Library/Preferences/com.googlecode.iterm2.plist` | Same path | Full iTerm2 config. Export also at `config/iTerm2 State.itermexport`. |
 
-### 4. Homebrew Packages
+### 4. Browser Profile (Chrome)
+
+| Item | Source Path | Destination | Notes |
+|------|------------|-------------|-------|
+| Chrome profile | `~/Library/Application Support/Google/Chrome/` | Same path | Cookies, local storage, IndexedDB, history, bookmarks, saved passwords, extensions, autofill, preferences. Bulk cache dirs (`Cache`, `Code Cache`, `GPUCache`, `blob_storage`, `Session Storage`, etc.) are excluded — they regenerate automatically. **Chrome must be quit during import.** |
+
+### 5. Homebrew Packages
 
 | Item | File | Notes |
 |------|------|-------|

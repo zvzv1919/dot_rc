@@ -64,6 +64,12 @@ All scripts source `install/common.sh` for shared functions and are idempotent (
 
 **`config/iTerm2 State.itermexport`** - Complete iTerm2 configuration (import via Preferences or `open` command)
 
+**`config/migration.md`** - Full inventory of config/credential files to migrate to a new laptop, with apply instructions and agent guidance.
+
+**`config/migrate-export.sh`** - Run on the old laptop to create `~/Desktop/laptop-migration/` containing a tarball of configs/creds and a Homebrew Brewfile.
+
+**`config/migrate-import.sh`** - Run on the new laptop to extract and apply each config independently, printing a final success/failure report.
+
 ## Slash Commands
 
 Custom Claude Code commands live in `.claude/commands/` and are invoked as `/project:<name>`:

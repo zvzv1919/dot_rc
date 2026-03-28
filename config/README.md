@@ -82,6 +82,16 @@ cp ~/.zshrc .zshrc
 **Cursor:**
 1. Settings → Profiles → Export Profile
 
+## Laptop Migration
+
+Scripts and documentation for migrating configs and credentials to a new laptop:
+
+- **`migration.md`** — Full inventory of files in the migration archive, apply instructions, and agent guidance
+- **`migrate-export.sh`** — Run on the old laptop to create `~/Desktop/laptop-migration/` (tarball + Brewfile)
+- **`migrate-import.sh`** — Run on the new laptop to untar and apply each config independently, with a final success/failure report
+
+See [migration.md](migration.md) for details.
+
 ## Notes
 
 - Always backup existing config files before overwriting
